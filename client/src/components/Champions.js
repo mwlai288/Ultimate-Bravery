@@ -1,5 +1,5 @@
 import React from 'react';
-
+  
 
 const CHAMPION_SQUARE = 'http://ddragon.leagueoflegends.com/cdn/7.24.2/img/champion/';
 

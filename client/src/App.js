@@ -1,20 +1,31 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-
 import Champions from './components/Champions';
+import Spells from './components/Spells';
+
 
 class App extends Component {
   state = {
-    champions: []
+    champions: [],
+    runes: [],
+    spells: []
   }
 
   async componentDidMount() {
     try {
       const res = await fetch('http://ddragon.leagueoflegends.com/cdn/7.24.2/data/en_US/champion.json');
+      const res2 = await fetch('http://ddragon.leagueoflegends.com/cdn/7.24.1/data/en_US/runesReforged.json');
+      const res3 = await fetch('http://ddragon.leagueoflegends.com/cdn/7.24.2/data/en_US/summoner.json');
       const champions = await res.json();
+      const runesReforged = await res2.json();
+      const spells = await res3.json();
       console.log(champions);
+      console.log(runesReforged);
+      console.log(spells);
       this.setState({
-        champions: Object.values(champions.data)
+        champions: Object.values(champions.data),
+        runes: runesReforged,
+        spells: Object.values(spells.data)
       });
     } catch(e) {
       console.log(e);
@@ -31,7 +42,27 @@ class App extends Component {
         <ChampGrid>
           {this.state.champions.map(champion => <Champions key={champion.key} champion={champion} image={champion}/>)}
         </ChampGrid>
+        Runes Go Here
+        {this.state.runes.map(rune =>{
+          return (
+            <div key={rune.id}>
+              {rune.name}
+              {/* {this.state.runes.slots.map(slot =>{
+                return (
+                  <div key={slot.id}>
+                    {slot.name}
+                  </div>
+                )
+              })} */}
+              {rune.slots.runes}
+            </div>
+          )
+        })}
+        <SummonerGrid>
+          {this.state.spells.map(spell => <Spells key={spell.key} spell={spell}/> )}
+        </SummonerGrid>
       </div>
+ 
     );
   }
 }
@@ -44,7 +75,7 @@ const ChampGrid = styled.div`
   padding: 1rem;
   grid-template-columns: repeat(6,1fr);
   grid-row-gap: 0.4rem;
-`
+  `
 const HeadsUp = styled.header`
   display: flex;  
   /* flex-wrap: wrap; */
@@ -53,4 +84,12 @@ const HeadsUp = styled.header`
   padding: 10px;
   color: white;
   justify-content: center;
+  `
+
+const SummonerGrid = styled.div`
+  display: flex;
+  display: grid;
+  padding: 1rem;
+  grid-template-columns: repeat(6,1fr);
+  grid-row-gap: 0.4rem;
 `
