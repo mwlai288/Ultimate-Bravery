@@ -13,6 +13,10 @@ class App extends Component {
     items: []
   }
 
+  componentWillMount(){
+    this.getChampion();
+  }
+
   async componentDidMount() {
     try {
       const res = await fetch('http://ddragon.leagueoflegends.com/cdn/7.24.2/data/en_US/champion.json');
@@ -23,10 +27,8 @@ class App extends Component {
       const runesReforged = await res2.json();
       const spells = await res3.json();
       const items = await res4.json();
+      // console.log(runesReforged);
       console.log(champions);
-      console.log(runesReforged);
-      console.log(spells);
-      console.log(items);
       this.setState({
         champions: Object.values(champions.data),
         runes: runesReforged,
@@ -37,10 +39,23 @@ class App extends Component {
       console.log(e);
     }
   }
-  render() {
-    
-    const ITEM_POSTER = ('http://ddragon.leagueoflegends.com/cdn/7.24.2/img/item/')
+  
+  getChampion = () => {
+    this.setState({
+      randomChampion: [this.state.champions[Math.floor(Math.random() * this.state.champions.length)]]
+    })
+  };
 
+  // getChampion = (e) => {
+  //     let randomChampion = this.state.champions[Math.floor(Math.random() * this.state.champions.length)];
+  //     const newState = {...this.state.champions.name}
+  //     newState.champions = (randomChampion)
+  //     this.setState(newState)
+  //     console.log(Object.values(randomChampion));
+  //   }
+
+  render() {     
+    console.log(this.state.randomChampion);
     return (
       <div>
         <HeadsUp>
@@ -48,10 +63,23 @@ class App extends Component {
           
           <p>Are you brave enough?</p>
         </HeadsUp>
+
         <ChampGrid>
-          {this.state.champions.map(champion => <Champions key={champion.key} champion={champion} image={champion}/>)}
+          <button onClick={this.getChampion}>
+            Please Not Teemo
+          </button>  
+          {/* {this.state.randomChampion.map((champion) =>{
+            return(
+            <div key={champion.key}>
+              {champion.name}
+            </div>
+            )
+          })} */}
+          {/* {this.state.champions.map(champion => <Champions key={champion.key} champion={champion} image={champion} button={champion} />)} */}
         </ChampGrid>
+     
         Runes Go Here
+     
         {this.state.runes.map(rune =>{
           return (
             <div key={rune.id}>
@@ -91,6 +119,10 @@ class App extends Component {
 
 export default App;
 
+const ChampButton = styled.button`
+  display: flex;
+  justify-content: space-around;
+`
 const ChampGrid = styled.div`
   display: flex;
   display: grid;
