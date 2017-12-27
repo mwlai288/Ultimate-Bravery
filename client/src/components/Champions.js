@@ -6,6 +6,8 @@ const Champions = ({ champion }) => (
   <div>
     {champion.name}
     <br/>
+    {champion.title}
+    <br/>
     <img src={`${CHAMPION_SQUARE}${champion.image.full}`} alt="" />
   </div>
 );

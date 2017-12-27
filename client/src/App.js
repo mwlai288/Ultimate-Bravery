@@ -8,13 +8,10 @@ import Items from './components/Items';
 class App extends Component {
   state = {
     champions: [],
+    randomChampion: [],
     runes: [],
     spells: [],
     items: []
-  }
-
-  componentWillMount(){
-    this.getChampion();
   }
 
   async componentDidMount() {
@@ -31,6 +28,7 @@ class App extends Component {
       console.log(champions);
       this.setState({
         champions: Object.values(champions.data),
+        randomChampion: Object.values(champions.data),
         runes: runesReforged,
         spells: Object.values(spells.data),
         items: Object.values(items.data)
@@ -46,16 +44,10 @@ class App extends Component {
     })
   };
 
-  // getChampion = (e) => {
-  //     let randomChampion = this.state.champions[Math.floor(Math.random() * this.state.champions.length)];
-  //     const newState = {...this.state.champions.name}
-  //     newState.champions = (randomChampion)
-  //     this.setState(newState)
-  //     console.log(Object.values(randomChampion));
-  //   }
 
   render() {     
     console.log(this.state.randomChampion);
+    // console.log(this.state.champions);
     return (
       <div>
         <HeadsUp>
@@ -64,42 +56,44 @@ class App extends Component {
           <p>Are you brave enough?</p>
         </HeadsUp>
 
-        <ChampGrid>
-          <button onClick={this.getChampion}>
+        <button onClick={this.getChampion}>
             Please Not Teemo
-          </button>  
-          {/* {this.state.randomChampion.map((champion) =>{
-            return(
-            <div key={champion.key}>
-              {champion.name}
-            </div>
+        </button> 
+
+        <ChampGrid>    
+          {/* {this.state.randomChampion.map((champion)=>{
+            return (
+              <div key={champion.key}>
+                {champion.name}
+              </div>
             )
           })} */}
-          {/* {this.state.champions.map(champion => <Champions key={champion.key} champion={champion} image={champion} button={champion} />)} */}
+         {/* {this.state.randomChampion.name} */}
+         {this.state.randomChampion.map(champion => <Champions key={champion.key} champion={champion} image={champion}/>)}
         </ChampGrid>
      
         Runes Go Here
      
-        {this.state.runes.map(rune =>{
+        {/* {this.state.runes.map(rune =>{
           return (
             <div key={rune.id}>
               {rune.name}
-              {/* {rune.slots.map(slot =>{
+              {rune.slots.map(slot =>{
                 return (
                   <div>
                     {slot.runes.map}
                   </div>
                 )
-              })} */}
+              })}
               {rune.slots.runes}
             </div>
           )
-        })}         
+        })}          */}
         <SummonerGrid>
-          {this.state.spells.map(spell => <SummonerSpells key={spell.key} spell={spell}/> )}
+          {/* {this.state.spells.map(spell => <SummonerSpells key={spell.key} spell={spell}/> )} */}
         </SummonerGrid>
         <ItemGrid>
-          {this.state.items.map(item => {
+          {/* {this.state.items.map(item => {
             if (item.maps[11]){
               return (
               // <div key={item.key}>
@@ -109,7 +103,7 @@ class App extends Component {
               <Items key={item.key} item={item} /> 
               )}  
           })
-          }
+          } */}
         </ItemGrid> 
       </div>
  
