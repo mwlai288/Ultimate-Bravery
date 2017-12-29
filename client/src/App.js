@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import Champions from './components/Champions';
+import SummonersRift from './components/SummonersRift';
 import SummonerSpells from './components/SummonerSpells';
 import Items from './components/Items';
 
@@ -8,7 +8,7 @@ import Items from './components/Items';
 class App extends Component {
   state = {
     champions: [],
-    randomChampion: [],
+    randomChampion: {},
     runes: [],
     spells: [],
     items: []
@@ -21,6 +21,7 @@ class App extends Component {
       const res3 = await fetch('http://ddragon.leagueoflegends.com/cdn/7.24.2/data/en_US/summoner.json');
       const res4 = await fetch ('http://ddragon.leagueoflegends.com/cdn/7.24.2/data/en_US/item.json');
       const champions = await res.json();
+      // const randomChampion = await res.json();
       const runesReforged = await res2.json();
       const spells = await res3.json();
       const items = await res4.json();
@@ -40,19 +41,16 @@ class App extends Component {
   
   getChampion = () => {
     this.setState({
-      randomChampion: [this.state.champions[Math.floor(Math.random() * this.state.champions.length)]]
+      randomChampion: this.state.champions[Math.floor(Math.random() * this.state.champions.length)],
     })
   };
 
 
   render() {     
-    console.log(this.state.randomChampion);
-    // console.log(this.state.champions);
     return (
       <div>
         <HeadsUp>
           <h1>ULTIMATE BRAVERY</h1>
-          
           <p>Are you brave enough?</p>
         </HeadsUp>
 
@@ -60,17 +58,9 @@ class App extends Component {
             Please Not Teemo
         </button> 
 
-        <ChampGrid>    
-          {/* {this.state.randomChampion.map((champion)=>{
-            return (
-              <div key={champion.key}>
-                {champion.name}
-              </div>
-            )
-          })} */}
-         {/* {this.state.randomChampion.name} */}
-         {this.state.randomChampion.map(champion => <Champions key={champion.key} champion={champion} image={champion}/>)}
-        </ChampGrid>
+        <div>  
+          <SummonersRift randomChampion={this.state.randomChampion}/>
+        </div>
      
         Runes Go Here
      
@@ -117,13 +107,13 @@ const ChampButton = styled.button`
   display: flex;
   justify-content: space-around;
 `
-const ChampGrid = styled.div`
-  display: flex;
-  display: grid;
-  padding: 1rem;
-  grid-template-columns: repeat(6,1fr);
-  grid-row-gap: 0.4rem;
-  `
+// const ChampGrid = styled.div`
+//   display: flex;
+//   display: grid;
+//   padding: 1rem;
+//   grid-template-columns: repeat(6,1fr);
+//   grid-row-gap: 0.4rem;
+//   `
 const HeadsUp = styled.header`
   display: flex;  
   /* flex-wrap: wrap; */
