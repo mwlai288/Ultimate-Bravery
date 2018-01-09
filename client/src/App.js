@@ -45,12 +45,17 @@ class App extends Component {
   };
 
   getSpell1 = () => {
-    // this.state.spells.filter((spell) => {
-    // return spell.mode.filter((mode) => {
-    // return mode === 'TUTORIAL'
+    const spells = this.state.spells.filter((spell) => {
+      return spell.modes.includes('TUTORIAL')
+    })
+    const randomSpell = spells[Math.floor(Math.random() * spells.length)]
+    let randomSpell2 = spells[Math.floor(Math.random() * spells.length)]
+    while (randomSpell === randomSpell2){
+      randomSpell2 = spells[Math.floor(Math.random() * spells.length)]
+    }
     this.setState({
-      randomSpell: this.state.spells[Math.floor(Math.random() * this.state.spells.length)],
-      randomSpell2: this.state.spells[Math.floor(Math.random() * this.state.spells.length)]
+      randomSpell,
+      randomSpell2,
     })
   }
   
