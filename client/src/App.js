@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import SummonersRift from './components/SummonersRift';
-import SummonerSpells from './components/SummonerSpells';
+import Champions from './components/Champions';
+import SRSpells from './components/SRSpells';
 import Items from './components/Items';
 
 
@@ -11,6 +11,8 @@ class App extends Component {
     randomChampion: {},
     runes: [],
     spells: [],
+    randomSpell: {},
+    randomSpell2: {},
     items: []
   }
 
@@ -21,15 +23,12 @@ class App extends Component {
       const res3 = await fetch('http://ddragon.leagueoflegends.com/cdn/7.24.2/data/en_US/summoner.json');
       const res4 = await fetch ('http://ddragon.leagueoflegends.com/cdn/7.24.2/data/en_US/item.json');
       const champions = await res.json();
-      // const randomChampion = await res.json();
       const runesReforged = await res2.json();
       const spells = await res3.json();
       const items = await res4.json();
-      // console.log(runesReforged);
-      console.log(champions);
+      // console.log(spells);
       this.setState({
         champions: Object.values(champions.data),
-        randomChampion: Object.values(champions.data),
         runes: runesReforged,
         spells: Object.values(spells.data),
         items: Object.values(items.data)
@@ -45,8 +44,20 @@ class App extends Component {
     })
   };
 
-
+  getSpell1 = () => {
+    // this.state.spells.filter((spell) => {
+    // return spell.mode.filter((mode) => {
+    // return mode === 'TUTORIAL'
+    this.setState({
+      randomSpell: this.state.spells[Math.floor(Math.random() * this.state.spells.length)],
+      randomSpell2: this.state.spells[Math.floor(Math.random() * this.state.spells.length)]
+    })
+  }
+  
   render() {     
+    console.log(this.state.spells)
+    // console.log(this.state.randomSpell.modes);
+    // console.log(this.state.randomSpell2.modes);
     return (
       <div>
         <HeadsUp>
@@ -54,12 +65,12 @@ class App extends Component {
           <p>Are you brave enough?</p>
         </HeadsUp>
 
-        <button onClick={this.getChampion}>
-            Please Not Teemo
-        </button> 
 
         <div>  
-          <SummonersRift randomChampion={this.state.randomChampion}/>
+          <button onClick={this.getChampion}>
+            Please Not Teemo
+          </button> 
+          <Champions randomChampion={this.state.randomChampion}/>
         </div>
      
         Runes Go Here
@@ -79,9 +90,23 @@ class App extends Component {
             </div>
           )
         })}          */}
-        <SummonerGrid>
-          {/* {this.state.spells.map(spell => <SummonerSpells key={spell.key} spell={spell}/> )} */}
-        </SummonerGrid>
+
+        <div>
+          <button onClick={this.getSpell1}>
+            D for Flash
+          </button>
+          <br/>
+          Spell 1:
+          <SRSpells randomSpell={this.state.randomSpell}/>
+        </div>
+        <div>
+          Spell 2:
+          <SRSpells randomSpell={this.state.randomSpell2}/>
+        </div>
+
+      
+        
+
         <ItemGrid>
           {/* {this.state.items.map(item => {
             if (item.maps[11]){
@@ -124,13 +149,13 @@ const HeadsUp = styled.header`
   justify-content: center;
   `
 
-const SummonerGrid = styled.div`
-  display: flex;
-  display: grid;
-  padding: 1rem;
-  grid-template-columns: repeat(6,1fr);
-  grid-row-gap: 0.4rem;
-`
+// const SummonerGrid = styled.div`
+//   display: flex;
+//   display: grid;
+//   padding: 1rem;
+//   grid-template-columns: repeat(6,1fr);
+//   grid-row-gap: 0.4rem;
+// `
 
 const ItemGrid = styled.div`
   display: flex;

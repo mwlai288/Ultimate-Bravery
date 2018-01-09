@@ -8,10 +8,11 @@ const Champions = ({ randomChampion }) => (
     <br/>
     {randomChampion.title}
     <br/>
-    {randomChampion.image ? <img src={`${CHAMPION_SQUARE}${randomChampion.image.full}`} />
+    {randomChampion.image ? <img src={`${CHAMPION_SQUARE}${randomChampion.image.full}`} alt="" />
           : null} 
   </div>
 );
+
 
 
 export default Champions;
