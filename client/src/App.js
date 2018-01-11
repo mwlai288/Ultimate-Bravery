@@ -13,7 +13,13 @@ class App extends Component {
     spells: [],
     randomSpell: {},
     randomSpell2: {},
-    items: []
+    items: [],
+    randomItem: {},
+    randomItem2: {},
+    randomItem3: {},
+    randomItem4: {},
+    randomItem5: {},
+    randomItem6: {},
   }
 
   async componentDidMount() {
@@ -43,10 +49,10 @@ class App extends Component {
       randomChampion: this.state.champions[Math.floor(Math.random() * this.state.champions.length)],
     })
   };
-
-  getSpell1 = () => {
+  
+  getSpell = () => {
     const spells = this.state.spells.filter((spell) => {
-      return spell.modes.includes('TUTORIAL')
+      return spell.modes.includes('CLASSIC')
     })
     const randomSpell = spells[Math.floor(Math.random() * spells.length)]
     let randomSpell2 = spells[Math.floor(Math.random() * spells.length)]
@@ -59,17 +65,85 @@ class App extends Component {
     })
   }
   
-  render() {     
-    console.log(this.state.spells)
-    // console.log(this.state.randomSpell.modes);
-    // console.log(this.state.randomSpell2.modes);
+  getItems = () => {
+    const items = this.state.items.filter((item) => {
+      return item.depth >= 3 && item.maps[11] && item.hideFromAll !== true && item.requiredAlly !== "Ornn" && !item.name.includes("Quick Charge" || "Bilgewater Cutlass") 
+      // if (this.state.randomChampion.name === "Viktor") {
+      //   item.name.includes("The Hex Core")
+      // }
+    })
+    const boots = this.state.items.filter((boot) => {
+      return boot.tags.includes("Boots") && boot.inStore !== false && !boot.name.includes("Boots of Speed")
+    })
+      let randomItem = boots[Math.floor(Math.random() * boots.length)]
+      let randomItem2 = items[Math.floor(Math.random() * items.length)]
+      let randomItem3 = items[Math.floor(Math.random() * items.length)]
+      let randomItem4 = items[Math.floor(Math.random() * items.length)]
+      let randomItem5 = items[Math.floor(Math.random() * items.length)]
+      let randomItem6 = items[Math.floor(Math.random() * items.length)]
+      while (randomItem === randomItem2 ) {
+        randomItem2 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem === randomItem3) {
+        randomItem3 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem === randomItem4) {
+        randomItem4 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem === randomItem5) {
+        randomItem5 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem === randomItem6) {
+        randomItem6 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem2 === randomItem3) {
+        randomItem3 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem2 === randomItem4) {
+        randomItem4 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem2 === randomItem5) {
+        randomItem5 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem2 === randomItem6) {
+        randomItem6 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem3 === randomItem4) {
+        randomItem5 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem3 === randomItem5) {
+        randomItem5 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem3 === randomItem6) {
+        randomItem6 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem4 === randomItem5) {
+        randomItem5 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem4 === randomItem6) {
+        randomItem6 = items[Math.floor(Math.random() * items.length)]
+      }
+      while (randomItem5 === randomItem6) {
+        randomItem6 = items[Math.floor(Math.random() * items.length)]
+      }
+    this.setState({
+      randomItem,
+      randomItem2,
+      randomItem3,
+      randomItem4,
+      randomItem5,
+      randomItem6
+    })
+  };
+  
+  render() {   
     return (
       <div>
         <HeadsUp>
           <h1>ULTIMATE BRAVERY</h1>
           <p>Are you brave enough?</p>
         </HeadsUp>
-
+      <BodyStyle>
 
         <div>  
           <button onClick={this.getChampion}>
@@ -77,7 +151,9 @@ class App extends Component {
           </button> 
           <Champions randomChampion={this.state.randomChampion}/>
         </div>
-     
+        <br/>
+
+
         Runes Go Here
      
         {/* {this.state.runes.map(rune =>{
@@ -95,24 +171,18 @@ class App extends Component {
             </div>
           )
         })}          */}
-
+        <br/>
         <div>
-          <button onClick={this.getSpell1}>
+          <button onClick={this.getSpell}>
             D for Flash
           </button>
           <br/>
-          Spell 1:
-          <SRSpells randomSpell={this.state.randomSpell}/>
+          <div>
+            <SRSpells randomSpell={this.state.randomSpell}/> <SRSpells randomSpell={this.state.randomSpell2}/>
+          </div>
         </div>
-        <div>
-          Spell 2:
-          <SRSpells randomSpell={this.state.randomSpell2}/>
-        </div>
-
-      
         
-
-        <ItemGrid>
+        
           {/* {this.state.items.map(item => {
             if (item.maps[11]){
               return (
@@ -124,26 +194,34 @@ class App extends Component {
               )}  
           })
           } */}
-        </ItemGrid> 
+
+          <div>
+            <button onClick={this.getItems}>
+              Tons of Damage
+            </button> 
+            <div>
+              <Items randomItem={this.state.randomItem}/>
+              <Items randomItem={this.state.randomItem2}/>
+              <Items randomItem={this.state.randomItem3}/>
+              <Items randomItem={this.state.randomItem4}/>
+              <Items randomItem={this.state.randomItem5}/>
+              <Items randomItem={this.state.randomItem6}/>
+            </div>
+          </div>
+          </BodyStyle>
       </div>
- 
     );
   }
 }
 
 export default App;
 
-const ChampButton = styled.button`
+const BodyStyle = styled.div`
   display: flex;
-  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
 `
-// const ChampGrid = styled.div`
-//   display: flex;
-//   display: grid;
-//   padding: 1rem;
-//   grid-template-columns: repeat(6,1fr);
-//   grid-row-gap: 0.4rem;
-//   `
+
 const HeadsUp = styled.header`
   display: flex;  
   /* flex-wrap: wrap; */
@@ -162,10 +240,10 @@ const HeadsUp = styled.header`
 //   grid-row-gap: 0.4rem;
 // `
 
-const ItemGrid = styled.div`
-  display: flex;
-  display: grid;
-  padding: 1rem;
-  grid-template-columns: repeat(6,1fr);
-  grid-row-gap: 0.4rem;
-`
+// const ItemGrid = styled.div`
+//   display: flex;
+//   display: grid;
+//   padding: 1rem;
+//   grid-template-columns: repeat(6,1fr);
+//   grid-row-gap: 0.4rem;
+// `
