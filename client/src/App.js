@@ -145,18 +145,18 @@ class App extends Component {
         </HeadsUp>
       <BodyStyle>
 
-        <div>  
+        <Buttons>  
           <button onClick={this.getChampion}>
             Please Not Teemo
           </button> 
+        </Buttons>
           <Champions randomChampion={this.state.randomChampion}/>
-        </div>
         <br/>
 
 
         Runes Go Here
      
-        {/* {this.state.runes.map(rune =>{
+        {this.state.runes.slots.runes.map(rune =>{
           return (
             <div key={rune.id}>
               {rune.name}
@@ -170,45 +170,34 @@ class App extends Component {
               {rune.slots.runes}
             </div>
           )
-        })}          */}
+        })}          
+
+
         <br/>
-        <div>
+        <Buttons>
           <button onClick={this.getSpell}>
             D for Flash
           </button>
+        </Buttons>
           <br/>
-          <div>
-            <SRSpells randomSpell={this.state.randomSpell}/> <SRSpells randomSpell={this.state.randomSpell2}/>
-          </div>
-        </div>
-        
-        
-          {/* {this.state.items.map(item => {
-            if (item.maps[11]){
-              return (
-              // <div key={item.key}>
-              //   {item.name}
-              //   <img src={`${ITEM_POSTER}${item.image.full}`} title={item.plaintext} alt=""/>
-              // </div>
-              <Items key={item.key} item={item} /> 
-              )}  
-          })
-          } */}
-
-          <div>
-            <button onClick={this.getItems}>
-              Tons of Damage
-            </button> 
-            <div>
-              <Items randomItem={this.state.randomItem}/>
-              <Items randomItem={this.state.randomItem2}/>
-              <Items randomItem={this.state.randomItem3}/>
-              <Items randomItem={this.state.randomItem4}/>
-              <Items randomItem={this.state.randomItem5}/>
-              <Items randomItem={this.state.randomItem6}/>
-            </div>
-          </div>
-          </BodyStyle>
+         <SummonerSpellsPic>
+          <SRSpells randomSpell={this.state.randomSpell}/> <SRSpells randomSpell={this.state.randomSpell2}/>
+         </SummonerSpellsPic>
+                  
+        <Buttons>
+          <button onClick={this.getItems}>
+            Tons of Damage
+          </button> 
+        </Buttons>
+        <ItemPic>
+          <Items randomItem={this.state.randomItem}/>
+          <Items randomItem={this.state.randomItem2}/>
+          <Items randomItem={this.state.randomItem3}/>
+          <Items randomItem={this.state.randomItem4}/>
+          <Items randomItem={this.state.randomItem5}/>
+          <Items randomItem={this.state.randomItem6}/>
+        </ItemPic>
+      </BodyStyle>
       </div>
     );
   }
@@ -224,26 +213,21 @@ const BodyStyle = styled.div`
 
 const HeadsUp = styled.header`
   display: flex;  
-  /* flex-wrap: wrap; */
+  flex-direction: column;
+  text-align: center;
   background-color: #222;
-  height: 90px;
-  padding: 10px;
+  height: 100px;
   color: white;
   justify-content: center;
   `
 
-// const SummonerGrid = styled.div`
-//   display: flex;
-//   display: grid;
-//   padding: 1rem;
-//   grid-template-columns: repeat(6,1fr);
-//   grid-row-gap: 0.4rem;
-// `
+const Buttons = styled.div`
+  display: flex;
+`
+const ItemPic = styled.div`
+  display: flex;
+`
 
-// const ItemGrid = styled.div`
-//   display: flex;
-//   display: grid;
-//   padding: 1rem;
-//   grid-template-columns: repeat(6,1fr);
-//   grid-row-gap: 0.4rem;
-// `
+const SummonerSpellsPic = styled.div`
+  display: flex;
+`
